@@ -10,4 +10,6 @@ public @interface Mock {
      */
     boolean mockSwitch() default false;
 
+    Integer mockType() default
+
 }
