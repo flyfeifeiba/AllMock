@@ -1,9 +1,12 @@
 package com.example.demo.advice;
 
 import com.alibaba.fastjson.JSON;
+import com.example.demo.annotation.Mock;
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.Signature;
 import org.aspectj.lang.reflect.MethodSignature;
+
+import java.lang.reflect.Method;
 
 /**
  * @ClassName MockAdvice
@@ -15,23 +18,15 @@ import org.aspectj.lang.reflect.MethodSignature;
 public class MockAdvice {
 
     public void doAround(ProceedingJoinPoint pjp) throws Throwable {
-        //获取方法名
-        Signature signature = pjp.getSignature();
-        Object[] args = pjp.getArgs();
+        //获取类的字节码对象，通过字节码对象获取方法信息
+        Class<?> targetCls= pjp.getTarget().getClass();
+        //获取方法签名(通过此签名获取目标方法信息)
+        MethodSignature ms= (MethodSignature)pjp.getSignature();
 
-        Class<?> classTarget=pjp.getTarget().getClass();
-        Class<?>[] par=((MethodSignature) pjp.getSignature()).getParameterTypes();
+        //获取目标方法上的注解指定的操作名称
+        Method targetMethod = targetCls.getDeclaredMethod(ms.getName(), ms.getParameterTypes());
 
-
-
-
-        if (args != null && args.length != 0 ) {
-
-            System.out.println("LoggerAdvice," + "执行方法:" + signature.getName() + "参数：" + JSON.toJSONString(args));
-        }
-        //pjp.proceed();
-
-
+        Mock mockAnnotation = targetMethod.getAnnotation(Mock.class);
 
 
 
