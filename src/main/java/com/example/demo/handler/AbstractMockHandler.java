@@ -1,5 +1,11 @@
 package com.example.demo.handler;
 
+import com.alibaba.fastjson.JSON;
+import org.aspectj.lang.ProceedingJoinPoint;
+import org.aspectj.lang.reflect.MethodSignature;
+
+import java.lang.reflect.Method;
+
 /**
  * @ClassName AbstractMockHandler
  * @Description mko
@@ -9,7 +15,31 @@ package com.example.demo.handler;
  */
 public abstract class AbstractMockHandler {
 
+    private static final String str = "{\"name\":\"wangyuanyuan\",\n" +
+            "\"age\":10}";
 
-    getMockResponse();
+    /**
+     * 获取返回类型
+     * @param pjp
+     * @return
+     * @throws NoSuchMethodException
+     */
+    public  Class<?> getMockResponse(ProceedingJoinPoint pjp) throws NoSuchMethodException {
+        //获取类的字节码对象，通过字节码对象获取方法信息
+        Class<?> targetCls= pjp.getTarget().getClass();
+        //获取方法签名(通过此签名获取目标方法信息)
+        MethodSignature ms= (MethodSignature)pjp.getSignature();
+
+        //获取目标方法上的注解指定的操作名称
+        Method targetMethod = targetCls.getDeclaredMethod(ms.getName(), ms.getParameterTypes());
+
+        return targetMethod.getReturnType();
+    }
+
+    public Object mock(ProceedingJoinPoint pjp) throws NoSuchMethodException {
+        return null;
+
+    }
+
 
 }
