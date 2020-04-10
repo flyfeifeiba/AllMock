@@ -1,6 +1,7 @@
 package com.example.demo.handler;
 
 import com.alibaba.fastjson.JSON;
+import com.example.demo.model.MockConfig;
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.reflect.MethodSignature;
 
@@ -14,9 +15,6 @@ import java.lang.reflect.Method;
  * @Version 1.0
  */
 public abstract class AbstractMockHandler {
-
-    private static final String str = "{\"name\":\"wangyuanyuan\",\n" +
-            "\"age\":10}";
 
     /**
      * 获取返回类型
@@ -36,9 +34,8 @@ public abstract class AbstractMockHandler {
         return targetMethod.getReturnType();
     }
 
-    public Object mock(ProceedingJoinPoint pjp) throws NoSuchMethodException {
-        return null;
-
+    private MockConfig getMethodMockConfig(ProceedingJoinPoint pjp) {
+        
     }
 
 

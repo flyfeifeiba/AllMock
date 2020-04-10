@@ -15,8 +15,8 @@ public class TestService {
 
 
     @Mock
-    public String test() {
-        return "test";
+    public Integer test() {
+        return 1;
     }
 
 }

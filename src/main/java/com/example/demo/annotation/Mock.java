@@ -1,5 +1,7 @@
 package com.example.demo.annotation;
 
+import com.example.demo.enums.MockType;
+
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
@@ -17,6 +19,9 @@ public @interface Mock {
      */
     boolean mockSwitch() default false;
 
-    //Integer mockType() default
+    /**
+     * mock 类型
+     */
+    int mockType() default 1;
 
 }
